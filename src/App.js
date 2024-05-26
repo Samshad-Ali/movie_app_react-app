@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import MovieList from './pages/MovieList'
+import FavouriteList from './pages/FavouriteList'
+import Header from './components/Header'
+import { routes } from './utils/constants'
+import { Toaster } from 'react-hot-toast'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Toaster/>
+      <Header/>
+    <Routes>
+      <Route path={routes.home} element={<MovieList/>} />
+      <Route path={routes.favouritePage} element={<FavouriteList/>} />
+    </Routes>
+    </>
+  )
 }
 
-export default App;
+export default App
+
