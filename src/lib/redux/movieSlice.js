@@ -20,10 +20,35 @@ export const movieSlice = createSlice({
   name: "/movieSlie",
   initialState: {
     data: [],
+    favouriteMovieList:[],
     loading: false,
     error: null,
+    isAdded:false
   },
-  reducers: {},
+  reducers: {
+    addFavouriteMovie:(state,action)=>{
+      const isMovie = state.data.filter(item=>item.id===action.payload);
+      const currentMovie = isMovie[0];
+      if(currentMovie){
+        const isAlreadyPresent = state.favouriteMovieList.some(item=>item.id===action.payload);
+        if(!isAlreadyPresent){
+          state.favouriteMovieList.push(currentMovie)
+          toast.success("Added to Favourite")
+          state.isAdded = true
+        }else{
+          return alert('Movie already added.')
+        }
+      }else{
+         toast.error('Movie not found')
+         
+      }
+      
+    },
+    removeFavouriteMovie:(state,action)=>{
+       state.favouriteMovieList = state.favouriteMovieList.filter(item=>item.id !== action.payload);
+       toast.error('Remove from Favourite')
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getData.pending, (state) => {
@@ -42,3 +67,5 @@ export const movieSlice = createSlice({
 });
 
 export default movieSlice.reducer;
+export const {addFavouriteMovie,removeFavouriteMovie} = movieSlice.actions;
+

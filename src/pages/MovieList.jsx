@@ -5,16 +5,14 @@ import Loading from '../components/Loading';
 import MovieCard from '../components/MovieCard';
 
 const MovieList = () => {
-  const {data,error,loading} = useSelector(state=>state.movie);
-  console.log(error,loading)
-  console.log(data)
+  const {data,loading} = useSelector(state=>state.movie);
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(getData())
   },[])
   if(loading) return <Loading/>
   return (
-    <div className='w-full h-[calc(100vh-64px)] overflow-y-auto flex flex-wrap justify-center items-center gap-4 p-4'>
+    <div className='w-full h-[calc(100vh-64px)] overflow-y-auto flex flex-wrap justify-center items-center gap-4 p-2 sm:p-4 sm:px-8'>
       {
         data?.map(item=><MovieCard key={item?.id} data={item} />)
       }
